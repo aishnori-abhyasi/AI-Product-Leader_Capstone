@@ -1,0 +1,12 @@
+# versions this project was tested with (Python 3.12)
+flask==3.1.3
+PyJWT==2.7.0
+scikit-learn==1.9.1
+pandas==3.0.6
+numpy==2.5.4
+requests==2.34.2
+cryptography==50.0.2
+gunicorn>=22.0
+
+# Optional, install only if you need them (not exercised in my tests):
+# anthropic langchain-core langgraph langchain-anthropic shap fairlearn

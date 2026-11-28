@@ -1,0 +1,25 @@
+# docker compose up --build        (put the values below in a .env file next to this file)
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      ENV: ${ENV:-sandbox}
+      APP_JWT_SECRET: ${APP_JWT_SECRET:?set APP_JWT_SECRET in .env}
+      APP_PEPPER: ${APP_PEPPER:?set APP_PEPPER in .env}
+      STAFF_DEMO_PASSWORD: ${STAFF_DEMO_PASSWORD:?set STAFF_DEMO_PASSWORD in .env}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    volumes: [data:/data]
+    expose: ["8000"]
+  caddy:                      # automatic HTTPS. For local tests leave DOMAIN=localhost
+    image: caddy:2
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+    volumes: ["./Caddyfile:/etc/caddy/Caddyfile:ro", "caddy_data:/data", "caddy_config:/config"]
+    depends_on: [app]
+volumes:
+  data:
+  caddy_data:
+  caddy_config:
