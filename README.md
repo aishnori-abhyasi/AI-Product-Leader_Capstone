@@ -1,5 +1,21 @@
 # UtiliSave – gig-worker scheme navigator (MVP)
 
+UtiliSave is built on a hardened **Python/Flask** backend orchestrated by a **four-agent LangGraph pipeline**, **Linear SHAP explainability**, **Fairlearn bias auditing**, **RBAC governance**, and an embedded **SQLite** compliance store—containerized with **Docker** and **Gunicorn** behind a **Caddy** reverse proxy with automatic HTTPS.
+
+## 🛠️ Tech Stack
+
+| Layer | Technologies | Role in UtiliSave |
+| :--- | :--- | :--- |
+| **Backend & API** | Python 3.12, Flask, Gunicorn (WSGI) | Serves REST API endpoints, enforces DPDP consent gates, and manages production worker processes. |
+| **Multi-Agent AI & LLM** | LangGraph, Anthropic Claude API | Orchestrates the 4-agent reasoning workflow to generate plain-language scheme recommendations without leaking internal model mechanics. |
+| **ML, Math & Data** | scikit-learn (`StandardScaler`), Pandas, NumPy | Standardizes numerical inputs, builds one-row feature frames from JSON payloads, and executes linear eligibility scoring. |
+| **Explainable AI (XAI)** | SHAP (`LinearExplainer`) | Computes exact, deterministic Shapley feature attributions in $O(M)$ time to power *"Why we suggested this"* and *"How you can improve"* guidance. |
+| **Algorithmic Fairness** | Fairlearn, NumPy (Permutation Testing) | Audits Demographic Parity, Equalized Odds, and AUC gaps across gender, region, age band, language, and intersectional cohorts. |
+| **Security & Governance** | PyJWT (HS256), `hashlib` (`scrypt`, `SHA-256`), Custom RBAC | Enforces 5-role Separation of Duties, sliding-window rate limiting, millisecond session revocation (`NOT_BEFORE_MS`), and emergency processing kill switches. |
+| **State & Audit Ledger** | SQLite (Embedded Serverless Store) | Zero-external-DB ephemeral ledger storing salted pseudonyms, consent records, retention-purged data, and a tamper-proof SHA-256 hash-chained audit log. |
+| **Frontend & Localization** | HTML5, CSS3, Vanilla JS, CSP Nonces, i18n | Accessible, mobile-first interface supporting **English**, **Hindi (हिन्दी)**, **Tamil (தமிழ்)**, and **Telugu (తెలుగు)**. |
+| **Cloud & Infrastructure** | Docker, Docker Compose, Caddy 2, Ubuntu 24.04 LTS, `sslip.io` | Runs non-root (`UID 10001`) containers behind a Caddy reverse proxy with UFW firewall hardening and automated Let's Encrypt TLS/HTTPS. |
+
 Customer enters a UPI ID → consent → Account Aggregator data (sandbox: synthetic) → 4 agents → plain-English suggestion.
 **Status: sandbox MVP on synthetic data. Not legal advice. Not ready for real customers** (see "Go-live checklist" and "Known gaps").
 Update 2: production-shaped AA adapter, Hindi/Tamil/Telugu, data-correction and breach-incident flows added (sections at the end).
