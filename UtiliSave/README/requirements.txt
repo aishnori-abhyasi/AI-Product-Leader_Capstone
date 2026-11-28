@@ -1,0 +1,14 @@
+flask>=3.0
+pyjwt>=2.8
+scikit-learn
+pandas
+numpy
+langchain-core
+langgraph
+langchain-anthropic
+anthropic
+shap
+fairlearn
+gunicorn
+requests
+cryptography
